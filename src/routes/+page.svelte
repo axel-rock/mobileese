@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 </script>
 
 <div>
@@ -13,7 +13,7 @@
 		/>
 	{/if}
 	<small>
-		<a href="/project/4bVvBx4hTIfIjpukjQkrduYElqF2">Or, do it from your computer</a>
+		<a href="{base}/project/4bVvBx4hTIfIjpukjQkrduYElqF2">Or, do it from your computer</a>
 	</small>
 </div>
 
