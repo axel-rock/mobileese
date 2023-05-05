@@ -39,19 +39,14 @@
 		}
 	}
 
-	function onGeolocate(e) {
+	function onGeolocate(e: any) {
 		if (e.detail?.coords) {
 			project.lat = e.detail.coords.latitude;
 			project.lng = e.detail.coords.longitude;
 		}
-		nextStep(null);
 	}
 
-	function nextStep() {
-		console.log(e);
-	}
-
-	function onSubmit(e) {
+	function onSubmit(e: Event) {
 		e.preventDefault();
 		console.log($page.params.id);
 		setDoc(doc(db, 'projects/mobileese/projects', $page.params.id), project);
@@ -148,7 +143,7 @@
 			bind:files
 			on:change={onFileChanges}
 		/>
-		<button disabled on:click={nextStep}>Passer cette étape</button>
+		<button disabled>Passer cette étape</button>
 	</fieldset>
 
 	<fieldset>
