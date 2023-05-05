@@ -1,0 +1,39 @@
+button,
+.button,
+button.primary:hover,
+.button.primary:hover {
+	display: inline-flex;
+	text-decoration: none;
+	padding: var(--space) calc(var(--space) * 2);
+	gap: calc(var(--space) * 1);
+	/* Fonts */
+	font-weight: 400;
+	font-size: 1.25rem;
+	/* prevent line breaks */
+	white-space: nowrap;
+	/* Border */
+	border: solid 1.5px var(--text-1);
+	border-radius: calc(var(--space) * 2);
+	/* Colors */
+	background-color: transparent;
+	color: var(--text-1);
+	/* Animation */
+	transition: all 0.2s ease-out;
+}
+
+button.no-border,
+.button.no-border {
+	border: none;
+}
+
+button:hover,
+.button:hover {
+	background-color: var(--text-1);
+	color: var(--surface-1);
+}
+
+button.primary,
+.button.primary {
+	background-color: var(--text-1);
+	color: var(--surface-1);
+}

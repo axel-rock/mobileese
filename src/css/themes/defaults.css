@@ -1,0 +1,40 @@
+:root {
+	--hue: 260;
+	--saturation: 10%;
+
+	--surface-0: hsl(var(--hue), var(--saturation), 100%);
+	--surface-1: hsl(var(--hue), var(--saturation), 98%);
+	--surface-2: hsl(var(--hue), var(--saturation), 92%);
+	--surface-3: hsl(var(--hue), var(--saturation), 86%);
+	--text-0: hsl(var(--hue), var(--saturation), 0%);
+	--text-1: hsl(var(--hue), var(--saturation), 13%);
+	--text-2: hsl(var(--hue), var(--saturation), 26%);
+	--halftone: hsl(var(--hue), var(--saturation), 50%);
+
+	--radius: 2rem;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--surface-0: hsl(var(--hue), var(--saturation), 0%);
+		--surface-1: hsl(var(--hue), var(--saturation), 10%);
+		--surface-2: hsl(var(--hue), var(--saturation), 20%);
+		--surface-3: hsl(var(--hue), var(--saturation), 30%);
+		--text-0: hsl(var(--hue), var(--saturation), 100%);
+		--text-1: hsl(var(--hue), var(--saturation), 95%);
+		--text-2: hsl(var(--hue), var(--saturation), 90%);
+	}
+}
+
+body {
+	background-color: var(--surface-1);
+}
+
+p {
+	color: var(--text-2);
+}
+
+b,
+strong {
+	color: var(--text-0);
+}

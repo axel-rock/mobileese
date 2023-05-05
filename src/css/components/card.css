@@ -1,0 +1,29 @@
+.card {
+	padding: calc(var(--space) * 2);
+	border-radius: calc(var(--space) * 2);
+	border: 1.5px solid transparent;
+	background: var(--surface-0);
+	box-sizing: border-box;
+
+	/* Animation */
+	transition: border-color 0.2s ease-out;
+}
+
+a.card {
+	text-decoration: none;
+	color: inherit;
+}
+
+.card.hoverable {
+	cursor: default;
+}
+
+.card.border,
+.card.hoverable:hover,
+a.card:hover {
+	border-color: var(--surface-2);
+}
+
+.card.border.hoverable:hover {
+	border-color: var(--surface-3);
+}

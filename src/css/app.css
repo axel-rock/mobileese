@@ -1,0 +1,26 @@
+/* Inspired by https://anthonyhobday.com/sideprojects/saferules/ */
+
+/* @import './reset.css'; */
+@import './typography.css';
+@import './utils.css';
+@import './themes/defaults.css';
+@import './components/button.css';
+/* @import './components/tile.css'; */
+@import './components/icon.css';
+@import './components/card.css';
+
+:root {
+	--font-size: calc(16px * 1.5);
+	--space: min(2vw, 1rem);
+}
+
+body {
+	display: grid;
+	margin: 0;
+}
+
+main {
+	/* container-type: inline-size; */
+	max-width: 65ch;
+	justify-self: center;
+}

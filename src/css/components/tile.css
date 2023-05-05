@@ -1,0 +1,47 @@
+.tiles {
+	display: flex;
+	font-size: 2rem;
+	gap: 1em;
+}
+
+@media (max-width: 600px) {
+	.tiles {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+}
+
+.tile {
+	display: grid;
+	grid-template-rows: 1em;
+	width: calc(var(--space) * 12);
+	gap: calc(var(--space) / 2);
+	padding: calc(var(--space) * 0.5);
+	font-weight: 400;
+	line-height: 1;
+	justify-content: center;
+	text-align: center;
+	border: solid 1px var(--surface-2);
+	border-radius: calc(var(--space) * 2);
+
+	/* Animation */
+	transition: border-color 0.2s ease-out;
+}
+
+a.tile {
+	text-decoration: none;
+}
+
+.tile:hover {
+	border-color: var(--surface-3);
+}
+
+.tile img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.tile span {
+	font-size: 0.5em;
+}
