@@ -29,6 +29,7 @@ jobs:
       - name: build
         env:
           BASE_PATH: '/mobileese'
+          PUBLIC_MAPBOX_TOKEN: 'pk.eyJ1IjoiYXhlbHJvY2siLCJhIjoiY2o4a2xrbXJuMGU1dDJxcGx2eW9sOWU5NyJ9.MurywI29sZG_EQzNP0kh8w'
         run: |
           npm run build
           touch build/.nojekyll
