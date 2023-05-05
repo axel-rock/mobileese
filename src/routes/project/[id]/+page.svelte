@@ -17,7 +17,6 @@
 		images: []
 	};
 	export let db: Firestore = data.db;
-	export const prerender = false;
 
 	export const snapshot: Snapshot = {
 		capture: () => project,
