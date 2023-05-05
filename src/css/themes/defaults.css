@@ -14,7 +14,7 @@
 	--radius: 2rem;
 }
 
-@media screen and (prefers-color-scheme: dark) {
+/* @media screen and (prefers-color-scheme: dark) {
 	:root {
 		--surface-0: hsl(var(--hue), var(--saturation), 0%);
 		--surface-1: hsl(var(--hue), var(--saturation), 10%);
@@ -24,7 +24,7 @@
 		--text-1: hsl(var(--hue), var(--saturation), 95%);
 		--text-2: hsl(var(--hue), var(--saturation), 90%);
 	}
-}
+} */
 
 body {
 	background-color: var(--surface-1);
