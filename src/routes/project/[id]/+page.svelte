@@ -1,29 +1,39 @@
 <script lang="ts">
-	// import type { PageData } from './$types';
+	import type { PageData, Snapshot } from './$types';
 	import type { Project } from '../../../project';
+	import { page } from '$app/stores';
+	import { setDoc, doc, type Firestore } from 'firebase/firestore';
 	import { PUBLIC_MAPBOX_TOKEN } from '$env/static/public';
-	import { Geocoder, Map, controls } from '@beyonk/svelte-mapbox';
-	import type { MapBoxGeocoderEvent } from '@beyonk/svelte-mapbox';
+	import { Geocoder, Map, controls } from '@beyonk/svelte-mapbox/components';
 
-	export let project: Project = {
-		images: []
-	};
 	export let mapComponent;
 	export const { GeolocateControl, NavigationControl } = controls;
 	export let center = { lat: 47.2184, lng: 1.5536 };
 	export let files: FileList;
+	export let data: PageData;
+	export let project: Project = data.project || {
+		images: []
+	};
+	export let db: Firestore = data.db;
+
+	export const snapshot: Snapshot = {
+		capture: () => project,
+		restore: (value) => (project = value)
+	};
 
 	function onFileChanges(e: Event) {
 		// To Do, upload images and get a download URL
 		project.images = [...(project.images || []), ...Array.from(files).map((file) => file.name)];
 	}
 
-	function onMapUpdate(e: MapBoxGeocoderEvent) {
+	function onMapUpdate(e: any) {
 		console.log(e);
-		if (e.details?.result?.center) {
+		if (e.detail?.result?.center) {
 			// mapComponent.map.setCenter(e.details.result.center);
-			project.lat = e.details.result.center[0];
-			project.lng = e.details.result.center[1];
+			project.lat = e.detail.result.center[0];
+			project.lng = e.detail.result.center[1];
+			center = { lat: e.detail.result.center[1], lng: e.detail.result.center[0] };
+			project.address = e.detail.result.place_name;
 		}
 	}
 
@@ -35,10 +45,14 @@
 		console.log(e);
 	}
 
-	// export let data: PageData;
+	function onSubmit(e) {
+		e.preventDefault();
+		console.log($page.params.id);
+		setDoc(doc(db, 'projects/mobileese/projects', $page.params.id), project);
+	}
 </script>
 
-<form method="POST">
+<form method="GET" on:submit={onSubmit}>
 	<fieldset>
 		<p>Trouver le meilleur interlocuteur pour vous, en 2 minutes.</p>
 		<label for="customerType">Vous représentez :</label>
@@ -52,7 +66,7 @@
 	</fieldset>
 
 	<fieldset>
-		<label>Où se situe votre projet ?</label>
+		<p>Où se situe votre projet ?</p>
 		<div>
 			<Geocoder accessToken={PUBLIC_MAPBOX_TOKEN} on:result={onMapUpdate} />
 		</div>

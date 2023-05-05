@@ -26,6 +26,7 @@
 	}
 
 	header img {
-		height: 1.5rem;
+		height: 26px;
+		width: 150px;
 	}
 </style>
