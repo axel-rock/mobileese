@@ -1,11 +1,4 @@
 <script lang="ts">
-	import type { Project } from '../../project';
-
-	// <option value="enterprise">Entreprise</option>
-	// <option value="mobility_operator">Opérateur de mobilité</option>
-	// <option value="local_community">Collectivité locale</option>
-	// <option value="condominium">Syndicat de copropriété</option>
-
 	const customerTypes = {
 		enterprise: 'Entreprise',
 		mobility_operator: 'Opérateur de mobilité',

@@ -5,12 +5,14 @@
 	import { setDoc, doc, type Firestore } from 'firebase/firestore';
 	import { PUBLIC_MAPBOX_TOKEN } from '$env/static/public';
 	import { Geocoder, Map, controls } from '@beyonk/svelte-mapbox/components';
+	import { onMount } from 'svelte';
 
 	export let mapComponent;
 	export const { GeolocateControl, NavigationControl } = controls;
 	export let center = { lat: 47.2184, lng: 1.5536 };
 	export let files: FileList;
 	export let data: PageData;
+	export let form;
 	export let project: Project = data.project || {
 		images: []
 	};
@@ -37,8 +39,12 @@
 		}
 	}
 
-	function eventHandler(e) {
-		console.log(e);
+	function onGeolocate(e) {
+		if (e.detail?.coords) {
+			project.lat = e.detail.coords.latitude;
+			project.lng = e.detail.coords.longitude;
+		}
+		nextStep(null);
 	}
 
 	function nextStep() {
@@ -50,9 +56,14 @@
 		console.log($page.params.id);
 		setDoc(doc(db, 'projects/mobileese/projects', $page.params.id), project);
 	}
+
+	onMount(() => {
+		// Scroll to top of form
+		window.scrollTo(0, form.offsetTop);
+	});
 </script>
 
-<form method="GET" on:submit={onSubmit}>
+<form method="GET" on:submit={onSubmit} bind:this={form}>
 	<fieldset>
 		<p>Trouver le meilleur interlocuteur pour vous, en 2 minutes.</p>
 		<label for="customerType">Vous représentez :</label>
@@ -76,16 +87,17 @@
 				bind:this={mapComponent}
 				{center}
 				options={{
-					zoom: 2
+					zoom: 2,
+					scrollZoom: false
 				}}
 			>
-				<GeolocateControl options={{ some: 'control-option' }} on:eventname={eventHandler} />
+				<GeolocateControl options={{ some: 'control-option' }} on:geolocate={onGeolocate} />
 				<!-- <NavigationControl /> -->
 			</Map>
 		</div>
 	</fieldset>
 
-	<fieldset>
+	<fieldset class="gap">
 		<label for="numberOfParkingSpots">Nombre de points de charge envisagés:</label>
 		<input
 			type="number"
@@ -97,7 +109,7 @@
 		/>
 	</fieldset>
 
-	<fieldset>
+	<fieldset class="gap">
 		<label for="chargingSpeed">Vitesse de recharge:</label>
 		<select name="chargingSpeed" id="chargingSpeed" bind:value={project.chargingSpeed} required>
 			<option value="" selected disabled>Choisir ma puissance idéale </option>
@@ -148,13 +160,11 @@
 	</fieldset>
 </form>
 
-<pre>
-	{JSON.stringify(project, null, 2)}
-</pre>
-
 <style>
 	.map-container {
 		height: 400px;
+		flex-grow: 1;
+		width: 100vw;
 	}
 
 	form {
@@ -163,8 +173,15 @@
 
 	fieldset {
 		padding: 1rem;
+		gap: 1rem;
 		margin: 0;
 		border: 1px solid #ccc;
+		height: 100vh;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
 	}
 
 	fieldset:has(.map-container) {
